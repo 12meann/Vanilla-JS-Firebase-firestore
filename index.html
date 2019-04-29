@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!-- Compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <style>
+      .flow-text {
+        padding: 10px 0;
+      }
+      .collection .collection-item:nth-child(even) {
+        background: #f5f5f5;
+      }
+    </style>
+
+    <title>Fave Movie List</title>
+  </head>
+  <body class="pink lighten-5 grey-text text-darken-3">
+    <div class="container">
+      <h1 class="center">My Fave Movie List</h1>
+
+      <form class="form" id="add-movie">
+        <div class="row">
+          <div class="col s12 m4">
+            <label for="title"></label>
+            <input
+              type="text"
+              class="input-field"
+              id="title"
+              placeholder="Movie Title"
+            />
+          </div>
+          <div class="col s12 m4">
+            <label for="genre"></label>
+            <select class="input-field" id="genre">
+              <option value="" disabled selected>Genre</option>
+              <option value="romance">Romance</option>
+              <option value="action">Action</option>
+              <option value="suspense">Suspense</option>
+              <option value="horror">Horror</option>
+              <option value="comedy">Comedy</option>
+              <option value="animation">Animation</option>
+              <option value="drama">Drama</option>
+            </select>
+          </div>
+          <div class="col s12 m2">
+            <label for="rating"></label>
+            <input
+              type="number"
+              class="input-field"
+              id="rating"
+              min="1"
+              max="5"
+              placeholder="Movie rating"
+            />
+          </div>
+          <div class="col s12 m2">
+            <button class="waves-effect waves-light btn">
+              <i class="material-icons left">add</i>ADD
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <div class="section">
+        <ul class="collection" id="movie-list"></ul>
+      </div>
+
+      <!-- end of body container -->
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-firestore.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyDbqyoocrL-WfJEhHI13Qk9r1nNo3rG7z4",
+        authDomain: "me-anns-movie-list.firebaseapp.com",
+        databaseURL: "https://me-anns-movie-list.firebaseio.com",
+        projectId: "me-anns-movie-list",
+        storageBucket: "me-anns-movie-list.appspot.com",
+        messagingSenderId: "1089690516190"
+      };
+      firebase.initializeApp(config);
+
+      const db = firebase.firestore();
+    </script>
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>
