@@ -28,20 +28,17 @@
     <div class="container">
       <h1 class="center">My Fave Movie List</h1>
 
-      <div class="row">
-        <form class="col s12 m4 offset-m2">
+      <div class="row container">
+        <form class="col s12 m5  input-field">
+          <i class="material-icons prefix">search</i>
+          <input type="text" id="search-bar" placeholder="Search Movie" />
+
           <label for="search-bar"></label>
-          <input
-            type="text"
-            class="input-field"
-            id="search-bar"
-            placeholder="Search Movie"
-          />
         </form>
 
-        <div class="col s12 m4">
+        <div class="col s12 m5 offset-m1 input-field">
           <label for="search-genre"></label>
-          <select class="input-field" id="search-genre">
+          <select id="search-genre">
             <option value="" disabled selected>Search genre</option>
             <option value="romance">Romance</option>
             <option value="action">Action</option>
