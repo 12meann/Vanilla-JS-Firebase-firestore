@@ -1,4 +1,3 @@
-// for dropdown genre
 document.addEventListener("DOMContentLoaded", function() {
   var elems = document.querySelectorAll("select");
   var instances = M.FormSelect.init(elems);
@@ -6,8 +5,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
 const movieList = document.querySelector("#movie-list");
 const form = document.querySelector("#add-movie");
+const searchBar = document.querySelector("#search-bar");
+const searchGenre = document.querySelector("#search-genre");
 
-// capitalize title
 const capitalize = s => {
   if (typeof s !== "string") return "";
   return s.charAt(0).toUpperCase() + s.slice(1);
@@ -27,7 +27,7 @@ const createMovie = doc => {
 
   li.setAttribute("data-id", doc.id);
   title.textContent = capitalize(doc.data().title);
-  genre.textContent = doc.data().genre;
+  genre.textContent = capitalize(doc.data().genre);
   space.textContent = " || ";
   rating.textContent =
     doc.data().rating > 1
@@ -37,6 +37,7 @@ const createMovie = doc => {
 
   li.classList.add("collection-item");
   title.classList.add("flow-text");
+  genre.classList.add("genre-type");
   del.classList.add(
     "secondary-content",
     "btn",
@@ -56,11 +57,11 @@ const createMovie = doc => {
 
   movieList.appendChild(li);
 
-  // delete functionality;
+  delete functionality;
 
   del.addEventListener("click", e => {
     let id = doc.id;
-    console.log(id);
+
     db.collection("movies")
       .doc(id)
       .delete();
@@ -80,7 +81,7 @@ const createMovie = doc => {
 
 // =============================================
 
-// add movie list listener
+// add cafe list listener
 
 form.addEventListener("submit", e => {
   e.preventDefault();
@@ -99,8 +100,6 @@ form.addEventListener("submit", e => {
   form.rating.value = "";
 });
 
-// real time get and delete
-
 db.collection("movies")
   .orderBy("title")
   .onSnapshot(snapshot => {
@@ -111,8 +110,37 @@ db.collection("movies")
         createMovie(change.doc);
       } else if (change.type == "removed") {
         let li = movieList.querySelector(`[data-id="${change.doc.id}" ]`);
-        console.log(change.doc.id);
+
         movieList.removeChild(li);
       }
     });
   });
+
+searchBar.addEventListener("keyup", e => {
+  const term = e.target.value.toLowerCase();
+  const movies = movieList.querySelectorAll("li");
+  Array.from(movies).forEach(movie => {
+    const title = movie.firstElementChild.textContent;
+
+    if (title.toLowerCase().indexOf(term) != -1) {
+      movie.style.display = "block";
+    } else {
+      movie.style.display = "none";
+    }
+  });
+});
+
+searchGenre.addEventListener("change", e => {
+  const term = e.target.value.toLowerCase();
+
+  const movies = movieList.querySelectorAll("li");
+  Array.from(movies).forEach(movie => {
+    const genre = movie.children[1].textContent;
+
+    if (genre.toLowerCase().indexOf(term) != -1) {
+      movie.style.display = "block";
+    } else {
+      movie.style.display = "none";
+    }
+  });
+});
