@@ -1,3 +1,4 @@
+// for dropdown genre
 document.addEventListener("DOMContentLoaded", function() {
   var elems = document.querySelectorAll("select");
   var instances = M.FormSelect.init(elems);
@@ -6,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
 const movieList = document.querySelector("#movie-list");
 const form = document.querySelector("#add-movie");
 
+// capitalize title
 const capitalize = s => {
   if (typeof s !== "string") return "";
   return s.charAt(0).toUpperCase() + s.slice(1);
@@ -54,7 +56,7 @@ const createMovie = doc => {
 
   movieList.appendChild(li);
 
-  delete functionality;
+  // delete functionality;
 
   del.addEventListener("click", e => {
     let id = doc.id;
@@ -78,7 +80,7 @@ const createMovie = doc => {
 
 // =============================================
 
-// add cafe list listener
+// add movie list listener
 
 form.addEventListener("submit", e => {
   e.preventDefault();
@@ -96,6 +98,8 @@ form.addEventListener("submit", e => {
   form.genre.value = "";
   form.rating.value = "";
 });
+
+// real time get and delete
 
 db.collection("movies")
   .orderBy("title")
