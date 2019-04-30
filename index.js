@@ -2,6 +2,10 @@ document.addEventListener("DOMContentLoaded", function() {
   var elems = document.querySelectorAll("select");
   var instances = M.FormSelect.init(elems);
 });
+document.addEventListener("DOMContentLoaded", function() {
+  var elems = document.querySelectorAll(".collapsible");
+  var instances = M.Collapsible.init(elems);
+});
 
 const movieList = document.querySelector("#movie-list");
 const form = document.querySelector("#add-movie");
@@ -23,7 +27,6 @@ const createMovie = doc => {
   const rating = document.createElement("span");
   const del = document.createElement("a");
   const delButton = document.createElement("i");
-  const star = document.createElement("i");
 
   li.setAttribute("data-id", doc.id);
   title.textContent = capitalize(doc.data().title);
@@ -52,12 +55,9 @@ const createMovie = doc => {
   li.appendChild(space);
   li.appendChild(rating);
   title.appendChild(del);
-
   del.appendChild(delButton);
 
   movieList.appendChild(li);
-
-  delete functionality;
 
   del.addEventListener("click", e => {
     let id = doc.id;
@@ -67,17 +67,6 @@ const createMovie = doc => {
       .delete();
   });
 };
-// =============================================
-// get document from db but not real time
-
-// db.collection("movies")
-//   .orderBy("title")
-//   .get()
-//   .then(snapshot => {
-//     snapshot.docs.forEach(doc => {
-//       createMovie(doc);
-//     });
-//   });
 
 // =============================================
 
@@ -122,7 +111,7 @@ searchBar.addEventListener("keyup", e => {
   Array.from(movies).forEach(movie => {
     const title = movie.firstElementChild.textContent;
 
-    if (title.toLowerCase().indexOf(term) != -1) {
+    if (title.toLowerCase().includes(term)) {
       movie.style.display = "block";
     } else {
       movie.style.display = "none";
@@ -137,7 +126,7 @@ searchGenre.addEventListener("change", e => {
   Array.from(movies).forEach(movie => {
     const genre = movie.children[1].textContent;
 
-    if (genre.toLowerCase().indexOf(term) != -1) {
+    if (genre.toLowerCase().includes(term)) {
       movie.style.display = "block";
     } else {
       movie.style.display = "none";
