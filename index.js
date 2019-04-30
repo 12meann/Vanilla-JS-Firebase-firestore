@@ -1,16 +1,12 @@
-document.addEventListener("DOMContentLoaded", function() {
-  var elems = document.querySelectorAll("select");
-  var instances = M.FormSelect.init(elems);
-});
-document.addEventListener("DOMContentLoaded", function() {
-  var elems = document.querySelectorAll(".collapsible");
-  var instances = M.Collapsible.init(elems);
-});
-
 const movieList = document.querySelector("#movie-list");
 const form = document.querySelector("#add-movie");
 const searchBar = document.querySelector("#search-bar");
 const searchGenre = document.querySelector("#search-genre");
+
+document.addEventListener("DOMContentLoaded", function() {
+  var elems = document.querySelectorAll("select");
+  var instances = M.FormSelect.init(elems);
+});
 
 const capitalize = s => {
   if (typeof s !== "string") return "";
@@ -70,7 +66,7 @@ const createMovie = doc => {
 
 // =============================================
 
-// add cafe list listener
+// add movie in DB
 
 form.addEventListener("submit", e => {
   e.preventDefault();
@@ -83,11 +79,16 @@ form.addEventListener("submit", e => {
     })
     .then(doc => {
       createMovie(doc);
+    })
+    .catch(err => {
+      console.log(err);
     });
   form.title.value = "";
   form.genre.value = "";
   form.rating.value = "";
 });
+// =================================
+// real time listener
 
 db.collection("movies")
   .orderBy("title")
@@ -105,11 +106,14 @@ db.collection("movies")
     });
   });
 
+// =============================
+// search movies
+
 searchBar.addEventListener("keyup", e => {
   const term = e.target.value.toLowerCase();
   const movies = movieList.querySelectorAll("li");
   Array.from(movies).forEach(movie => {
-    const title = movie.firstElementChild.textContent;
+    const title = movie.firstElementChild.childNodes[0].nodeValue;
 
     if (title.toLowerCase().includes(term)) {
       movie.style.display = "block";
@@ -118,6 +122,8 @@ searchBar.addEventListener("keyup", e => {
     }
   });
 });
+// ===============================
+// search genre
 
 searchGenre.addEventListener("change", e => {
   const term = e.target.value.toLowerCase();
