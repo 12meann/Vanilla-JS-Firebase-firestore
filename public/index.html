@@ -13,26 +13,69 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
-    <style>
-      .flow-text {
-        padding: 10px 0;
-      }
-      .collection .collection-item:nth-child(even) {
-        background: #f5f5f5;
-      }
-    </style>
-
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="icon" href="./favicon.ico" type="image/x-icon" />
+    <!-- for PWA -->
+    <link rel="manifest" href="manifest.json" />
+    <!-- ios support -->
+    <link rel="apple-touch-icon" href="images/icons/disc-96.png" />
+    <meta name="apple-mobile-web-app-status-bar" content="#f8bbd0" />
     <title>Fave Movie List</title>
+    <meta name="theme-color" content="#f8bbd0" />
   </head>
-  <body class="pink lighten-5 grey-text text-darken-3">
-    <div class="container">
-      <h1 class="center">My Fave Movie List</h1>
 
-      <div class="row container">
+  <body class="pink lighten-5 grey-text text-darken-3">
+    <header>
+      <!-- desktop menu -->
+      <nav>
+        <div class="nav-wrapper container">
+          <a href="/" class="left brand-logo">FaveMovieList</a>
+          <a href="#" data-target="mobile-demo" class="right sidenav-trigger"
+            ><i class="material-icons">menu</i></a
+          >
+          <ul class="right hide-on-med-and-down">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="./pages/about.html">About</a></li>
+            <li><a href="./pages/contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+      </nav>
+      <!-- on mobile side nav menu right-->
+      <ul class="sidenav" id="mobile-demo">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="./pages/about.html">About</a></li>
+        <li><a href="./pages/contact.html">Contact Us</a></li>
+      </ul>
+    </header>
+    <div class="container">
+      <!-- mobile view form add & search -->
+      <div class="row center fabMobile hide-on-large-only">
+        <div class="col s4 offset-s2">
+          <a
+            onclick="openSearchbar()"
+            data-target="side-search"
+            class="sidenav-trigger btn-floating btn-large waves-effect waves-light"
+            ><i class="material-icons">search</i></a
+          >
+        </div>
+        <span class="col s4">
+          <a
+            onclick="openAddMovie()"
+            class="btn-floating btn-large waves-effect waves-light"
+            ><i class="material-icons">add</i></a
+          >
+        </span>
+      </div>
+
+      <!-- search -->
+      <div id="searchBar" class="row container hide-on-med-and-down">
         <form class="col s12 m5  input-field">
           <i class="material-icons prefix">search</i>
-          <input type="text" id="search-bar" placeholder="Search Movie" />
-
+          <input
+            type="text"
+            id="search-bar"
+            placeholder="Search in Movie List"
+          />
           <label for="search-bar"></label>
         </form>
 
@@ -51,13 +94,10 @@
         </div>
       </div>
 
-      <div class="section row">
-        <ul class="collection col s12" id="movie-list"></ul>
-      </div>
-
-      <form class="form" id="add-movie">
+      <!-- add movie -->
+      <form class="form hide-on-med-and-down" id="add-movie">
         <div class="row">
-          <div class="col s12 m4">
+          <div class="col s12 m12 l4">
             <label for="title"></label>
             <input
               type="text"
@@ -66,7 +106,7 @@
               placeholder="Movie Title"
             />
           </div>
-          <div class="col s12 m4">
+          <div class="col s12 m12 l4">
             <label for="genre"></label>
             <select class="input-field" id="genre">
               <option value="" disabled selected>Choose a genre</option>
@@ -79,7 +119,7 @@
               <option value="drama">Drama</option>
             </select>
           </div>
-          <div class="col s12 m2">
+          <div class="col s12 m12 l2">
             <label for="rating"></label>
             <input
               type="number"
@@ -90,35 +130,29 @@
               placeholder="Movie rating"
             />
           </div>
-          <div class="col s12 m2">
+          <div class="col s12 m12 l2">
             <button class="waves-effect waves-light btn">
-              <i class="material-icons left">add</i>ADD
+              ADD
             </button>
           </div>
         </div>
       </form>
+      <!-- movie list -->
+      <div class="section row">
+        <ul class="collection col s12" id="movie-list"></ul>
+      </div>
+
       <!-- end of body container -->
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-firestore.js"></script>
-    <script>
-      // Initialize Firebase
-      var config = {
-        apiKey: "AIzaSyDbqyoocrL-WfJEhHI13Qk9r1nNo3rG7z4",
-        authDomain: "me-anns-movie-list.firebaseapp.com",
-        databaseURL: "https://me-anns-movie-list.firebaseio.com",
-        projectId: "me-anns-movie-list",
-        storageBucket: "me-anns-movie-list.appspot.com",
-        messagingSenderId: "1089690516190"
-      };
-      firebase.initializeApp(config);
-
-      const db = firebase.firestore();
-    </script>
+    <script src="./config/fbConfig.js"></script>
 
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="index.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/db.js"></script>
   </body>
 </html>
