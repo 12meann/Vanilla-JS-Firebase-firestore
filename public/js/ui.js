@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 const loggedOutLinks = document.querySelectorAll(".logged-out");
-const loggedInLinks = document.querySelectorAll(".logged-in");
+const loggedInLinks = document.querySelectorAll(".logged-in, #delete-button");
 
 const setupUI = user => {
   if (user) {

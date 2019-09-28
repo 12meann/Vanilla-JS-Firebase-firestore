@@ -55,30 +55,30 @@ self.addEventListener("activate", e => {
 
 //fetch event
 self.addEventListener("fetch", e => {
-  // // do not save cache from firestore api; save in indexdb
-  // if (e.request.url.indexOf("firestore.googleapis.com") === -1) {
-  //   // check if theres something in cache that match the request
-  //   e.respondWith(
-  //     caches
-  //       .match(e.request)
-  //       .then(cacheRes => {
-  //         return (
-  //           cacheRes ||
-  //           fetch(e.request).then(fetchRes => {
-  //             //save new request to dynamic cache
-  //             return caches.open(dynamicCacheName).then(cache => {
-  //               cache.put(e.request.url, fetchRes.clone());
-  //               limitCacheSize(dynamicCacheName, 15);
-  //               return fetchRes;
-  //             });
-  //           })
-  //         );
-  //       })
-  //       .catch(() => {
-  //         if (e.request.url.indexOf(".html") > -1) {
-  //           return caches.match("./pages/fallback.html");
-  //         }
-  //       })
-  //   );
-  // }
+  // do not save cache from firestore api; save in indexdb
+  if (e.request.url.indexOf("firestore.googleapis.com") === -1) {
+    // check if theres something in cache that match the request
+    e.respondWith(
+      caches
+        .match(e.request)
+        .then(cacheRes => {
+          return (
+            cacheRes ||
+            fetch(e.request).then(fetchRes => {
+              //save new request to dynamic cache
+              return caches.open(dynamicCacheName).then(cache => {
+                cache.put(e.request.url, fetchRes.clone());
+                limitCacheSize(dynamicCacheName, 15);
+                return fetchRes;
+              });
+            })
+          );
+        })
+        .catch(() => {
+          if (e.request.url.indexOf(".html") > -1) {
+            return caches.match("./pages/fallback.html");
+          }
+        })
+    );
+  }
 });
