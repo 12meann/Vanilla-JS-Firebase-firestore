@@ -37,6 +37,20 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="./pages/about.html">About</a></li>
             <li><a href="./pages/contact.html">Contact Us</a></li>
+            <!-- auth -->
+            <li class="logged-in" style="display: none;">
+              <a href="#" id="logout">Logout</a>
+            </li>
+            <li class="logged-out" style="display: none;">
+              <a href="#" class="modal-trigger" data-target="modal-login"
+                >Login</a
+              >
+            </li>
+            <li class="logged-out" style="display: none;">
+              <a href="#" class="modal-trigger" data-target="modal-signup"
+                >Sign up</a
+              >
+            </li>
           </ul>
         </div>
       </nav>
@@ -45,11 +59,22 @@
         <li><a href="index.html">Home</a></li>
         <li><a href="./pages/about.html">About</a></li>
         <li><a href="./pages/contact.html">Contact Us</a></li>
+        <li class="logged-in">
+          <a href="#" id="logout2">Logout</a>
+        </li>
+        <li class="logged-out">
+          <a href="#" class="modal-trigger" data-target="modal-login">Login</a>
+        </li>
+        <li class="logged-out">
+          <a href="#" class="modal-trigger" data-target="modal-signup"
+            >Sign up</a
+          >
+        </li>
       </ul>
     </header>
     <div class="container">
       <!-- mobile view form add & search -->
-      <div class="row center fabMobile hide-on-large-only">
+      <div class="row center fabMobile hide-on-large-only logged-in">
         <div class="col s4 offset-s2">
           <a
             onclick="openSearchbar()"
@@ -68,7 +93,7 @@
       </div>
 
       <!-- search -->
-      <div id="searchBar" class="row container hide-on-med-and-down">
+      <div id="searchBar" class="row container logged-in hide-on-med-and-down">
         <form class="col s12 m5  input-field">
           <i class="material-icons prefix">search</i>
           <input
@@ -95,7 +120,7 @@
       </div>
 
       <!-- add movie -->
-      <form class="form hide-on-med-and-down" id="add-movie">
+      <form class="form hide-on-med-and-down logged-in" id="add-movie">
         <div class="row">
           <div class="col s12 m12 l4">
             <label for="title"></label>
@@ -139,13 +164,54 @@
       </form>
       <!-- movie list -->
       <div class="section row">
+        <p class="blue-text center" id="message"></p>
         <ul class="collection col s12" id="movie-list"></ul>
+      </div>
+
+      <!-- SIGN UP MODAL -->
+      <div id="modal-signup" class="modal">
+        <div class="modal-content">
+          <h4>Sign up</h4>
+          <br />
+          <form id="signup-form">
+            <div class="input-field">
+              <input type="email" id="signup-email" required />
+              <label for="signup-email">Email address</label>
+            </div>
+            <div class="input-field">
+              <input type="password" id="signup-password" required />
+              <label for="signup-password">Password</label>
+            </div>
+            <button class="btn z-depth-0">Sign up</button>
+            <!-- <p class="error pink-text center-align"></p> -->
+          </form>
+        </div>
+      </div>
+      <!-- LOGIN MODAL -->
+      <div id="modal-login" class="modal">
+        <div class="modal-content">
+          <h4>Login</h4>
+          <br />
+          <form id="login-form">
+            <div class="input-field">
+              <input type="email" id="login-email" required />
+              <label for="login-email">Email address</label>
+            </div>
+            <div class="input-field">
+              <input type="password" id="login-password" required />
+              <label for="login-password">Your password</label>
+            </div>
+            <button class="btn z-depth-0">Login</button>
+            <!-- <p class="error pink-text center-align"></p> -->
+          </form>
+        </div>
       </div>
 
       <!-- end of body container -->
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-firestore.js"></script>
     <script src="./config/fbConfig.js"></script>
 
