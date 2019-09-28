@@ -83,20 +83,14 @@ signupForm.addEventListener("submit", e => {
   // sign up the user & add firestore data
   auth
     .createUserWithEmailAndPassword(email, password)
-    //   .then(cred => {
-    //   return db.collection('users').doc(cred.user.uid).set({
-    //     bio: signupForm['signup-bio'].value
-    //   });
-    // })
+
     .then(() => {
       // close the signup modal & reset form
       const modal = document.querySelector("#modal-signup");
+      const menu = document.querySelector(".sidenav");
       M.Modal.getInstance(modal).close();
+      M.Sidenav.getInstance(menu).close();
       signupForm.reset();
-      // signupForm.querySelector('.error').innerHTML = ''
-      // }).catch(err => {
-      //   signupForm.querySelector('.error').innerHTML = err.message;
-      // });
     });
 });
 
@@ -106,7 +100,10 @@ logoutButtons.forEach(logout => {
   logout.addEventListener("click", e => {
     console.log("logout");
     e.preventDefault();
-    auth.signOut();
+    auth.signOut().then(() => {
+      const menu = document.querySelector(".sidenav");
+      M.Sidenav.getInstance(menu).close();
+    });
   });
 });
 
@@ -123,12 +120,10 @@ loginForm.addEventListener("submit", e => {
   auth.signInWithEmailAndPassword(email, password).then(cred => {
     // close the signup modal & reset form
     const modal = document.querySelector("#modal-login");
+    const menu = document.querySelector(".sidenav");
     M.Modal.getInstance(modal).close();
+    M.Sidenav.getInstance(menu).close();
     loginForm.reset();
-    //   loginForm.querySelector('.error').innerHTML = '';
-    // }).catch(err => {
-    //   loginForm.querySelector('.error').innerHTML = err.message;
-    // });
   });
 });
 

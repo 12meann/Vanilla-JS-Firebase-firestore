@@ -1,3 +1,4 @@
+//materialize
 document.addEventListener("DOMContentLoaded", function() {
   //select tab
   const select = document.querySelectorAll("select");
@@ -5,9 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
   //mobile menu
   const menu = document.querySelectorAll(".sidenav");
   M.Sidenav.init(menu, { edge: "right" });
-  //side search bar
-  const searchMobile = document.querySelectorAll("#side-search");
-  M.Sidenav.init(searchMobile, { edge: "left" });
+
   // modal
   const modals = document.querySelectorAll(".modal");
   M.Modal.init(modals);
@@ -67,6 +66,7 @@ const createMovie = doc => {
   title.classList.add("flow-text");
   genre.classList.add("genre-type");
   del.classList.add(
+    "logged-in",
     "secondary-content",
     "btn",
     "btn-floating",
